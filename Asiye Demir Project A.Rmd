@@ -1,0 +1,344 @@
+---
+title: "Asiye Demir Project A"
+author: "Asiye Demir"
+date: "01/30/2021"
+output: html_notebook
+---
+### Description
+
+Gun violence or ownership has been a ongoing debate in the United States. Although the legal debate and regulations have changed over time, a gun can be a reason for somebody's death. In this report, I will examine the gun deaths in America by looking at the proportions in the intention, gender and race factors behind the gun death across years.  
+
+Data Source: [Centers for Decease Control and Prevention ](https://www.cdc.gov/nchs/data_access/VitalStatsOnline.htm#Mortality_Multiple) 
+
+***
+
+### Analysis
+
+As a first step, I looked the proportions in the intent of gun death in 2012. As Table 1 and Figure 1 show, the most indented reason for gun use is suicide (.62) in 2012. Using a gun for homicidal purpose has the second place with .36 proportion.  
+
+```{r include=FALSE}
+
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggplot2)
+library(magrittr)
+
+guns<- read.csv("full_data.csv")
+
+```
+
+
+```{r include=FALSE}
+death2012<- subset(guns, guns$year == "2012")
+```
+
+
+```{r include=FALSE}
+More_death2012<- death2012 %>%
+  group_by(intent) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death2012 %>%
+  group_by(intent) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+```
+
+
+```{r echo=FALSE}
+ggplot(More_death2012, aes (x = intent, y = prop)) +
+  geom_col(fill = "red4") +
+  labs (x = "Death Reason Proportions in 2012",
+        y = "Proportion",
+        title = "Figure 1. Bar Graph for Death Intention in 2012")
+```
+
+
+```{r echo=FALSE}
+More_death2012 %>%
+  knitr::kable(caption = "Table 1. Proportions for Intent of Gun Death in 2012", digits = 4) %>%
+  kableExtra::kable_styling(bootstrap_options = "striped")
+```
+
+
+
+```{r include=FALSE}
+More_gender2012<- death2012 %>%
+  group_by(sex) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death2012 %>%
+  group_by(sex) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+```
+
+
+```{r echo=FALSE}
+ggplot(More_gender2012, aes (x = sex, y = prop)) +
+  geom_col(fill = "navy") +
+  labs (x = "Death Reason Proportions in 2012",
+        y = "Proportion",
+        title = "Figure 2. Bar Graph for Gun Death by Gender in 2012")
+```
+```{r eval=FALSE, include=FALSE}
+More_gender2012<- death2012 %>%
+  group_by(sex) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death2012 %>%
+  group_by(sex) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+
+More_gender2012 %>%
+  knitr::kable(caption = "Table 2. Proportions for Gun Death by Gender in 2012", digits = 4) %>%
+  kableExtra::kable_styling(bootstrap_options = "striped")
+```
+
+Gun death in 2012 was observed mostly among men than women. Men constitutes 86% of the sample while women constitutes only 14%. 
+
+
+```{r include=FALSE}
+More_race2012<- death2012 %>%
+  group_by(race) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death2012 %>%
+  group_by(race) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+```
+
+```{r echo=FALSE}
+ggplot(More_race2012, aes (x = race, y = prop)) +
+  geom_col(fill = "skyblue") +
+  labs (x = "Death Reason Proportions in 2012",
+        y = "Proportion",
+        title = "Figure 3. Bar Graph for Gun Death by Race in 2012")
+```
+
+
+```{r echo=FALSE, message=FALSE}
+
+More_race2012 %>%
+  knitr::kable(caption = "Table 3. Proportions for Gun Death by Race in 2012", digits = 5) %>%
+  kableExtra::kable_styling(bootstrap_options = "striped")
+```
+
+The last variable of interest in my report is race frequency in the gun death in 2012. Among 5 different race class, white death due to gun is overwhelmingly high. (.65). More than half of the gun death cases contain white people. Black people follows white frequency with about .25. Remaining 10 percent is shared among Asian, Native American and Hispanic people. 
+
+***
+
+
+### Conclusion
+
+The gun death in 2012 varies depending on the variable of interest. When I looked at the intention behind gun use, the most observed intention seems to be suicide with .62 rate. Homicide follows this ratio with .36. Gun death might have happened accidentally in .016 rate while we also have undetermined reasons in .007. Aligning with the common sense men committed gun death more than women in 2012. While 86% of men died by gun, this ratio for women is 14%. 
+
+Race frequency varies drastically in the data. White and Black people look like that they are spearheading for gun death in the data.  Among them, however, gun death in white people is overwhelmingly dominant to others with .65. Black people are dead due to gun use at .24. The least frequency for gun death by race has been observed among Native American people. (.009). Gun death among Hispanics is about 1% while for Asians this ratio is .013. 
+
+
+***
+
+### Description
+
+In the second part of the report, I will analyze the same variable of interests; intent, gender and race, in the 2019 data set. 
+
+***
+
+### Analysis
+
+
+```{r include=FALSE}
+death_2019<- read.csv("full_data_19.csv")
+```
+
+```{r include=FALSE}
+More_death_2019<- death_2019 %>%
+  group_by(intent) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death_2019 %>%
+  group_by(intent) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+```
+
+```{r echo=FALSE}
+ggplot(More_death_2019, aes (x = intent, y = prop)) +
+  geom_col(fill = "red4") +
+  labs (x = "Death Intention Proportions in 2019",
+        y = "Proportion",
+        title = "Figure 4. Bar Graph for Death Intention in 2019")
+```
+
+
+```{r echo=FALSE}
+More_death_2019 %>%
+  knitr::kable(caption = "Table 3. Proportions for Intent of Gun Death in 2019", digits = 4) %>%
+  kableExtra::kable_styling(bootstrap_options = "striped")
+```
+
+Like 2012, in 2019 gun death for suicidal tendencies was in the first place. Likewise, homicide follows suicide with .37. 
+
+```{r include=FALSE}
+More_death_gender2019<- death_2019 %>%
+  group_by(sex) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death_2019 %>%
+  group_by(sex) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+```
+
+```{r echo=FALSE}
+ggplot(More_death_gender2019, aes (x = sex, y = prop)) +
+  geom_col(fill = "navy") +
+  labs (x = "Gun Death Proportions by Gender in 2019",
+        y = "Proportion",
+        title = "Figure 5. Bar Graph for Gun Death by Gender in 2019")
+```
+
+In 2019, gun death by gender has not been changed much from 2012. Gun death among men is observed overwhelmingly more than gun death among women. .86 of men died due to guns in 2019 while this ratio is .14 for women. 
+
+
+```{r include=FALSE}
+More_death_race2019<- death_2019 %>%
+  group_by(race) %>%
+  summarize (freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+death_2019 %>%
+  group_by(race) %>%
+  summarize(freq = n()) %>%
+  mutate (prop = freq/sum(freq))
+```
+
+```{r echo=FALSE}
+ggplot(More_death_race2019, aes (x = race, y = prop)) +
+  geom_col(fill = "skyblue") +
+  labs (x = "Gun Death Proportions by Race in 2019",
+        y = "Proportion",
+        title = "Figure 6. Bar Graph for Gun Death by Race in 2019")
+```
+
+```{r echo=FALSE}
+
+More_death_race2019 %>%
+  knitr::kable(caption = "Table 4. Proportions for Gun Death by Race in 2019", digits = 4) %>%
+  kableExtra::kable_styling(bootstrap_options = "striped")
+
+```
+
+
+For the race variable in 2019, white people has still the dominant ratio in the frequency with .61. Similarly, Black people follows white people with .26. Remaining 13% has been shared among Asian, Hispanic and Native American people. 
+
+I will continue to comparison of these two years together in the following part of the report. 
+
+```{r include=FALSE}
+data_12_19<- rbind(death2012, death_2019)
+
+```
+
+
+```{r include=FALSE}
+data_12_19_intentcounts<- data_12_19 %>%
+  group_by(year, intent) %>%
+  summarize (freq = n(), .groups = 'drop')
+
+data_12_19intentProps <- data_12_19_intentcounts %>%
+  group_by(intent) %>%
+  mutate (prop = freq / sum(freq)) %>%
+  ungroup()
+```
+
+```{r echo=FALSE}
+ggplot(data_12_19intentProps, aes (x = year, y = prop, fill = intent )) +
+  geom_col()+
+  labs(x = '2012 and 2019', y = 'Proportion', title = "Figure 6. Proportion for Death Intent for 2012 and 2019") +
+  scale_fill_discrete (name = 'intent',
+                       labels = c ('Suicide', 'Homocide', 'Accidental', 'Undetermined'))
+```
+
+Table 5. Proportions for Gun Death by Intent in 2019
+```{r echo=FALSE}
+
+data_12_19intentProps
+
+```
+
+In 2019,about 4000 more people dead for suicide; however, 62 less people dead for accidental gun death in 2019. About 3000 more people died because gun use in  homicidal cases in 2019. 
+
+
+
+```{r include=FALSE}
+
+data_12_19racecounts<- data_12_19 %>%
+  group_by(year, race) %>%
+  summarize (freq = n(), .groups = 'drop')
+
+data_12_19raceProps<- data_12_19racecounts %>%
+  group_by(race) %>%
+  mutate (prop = freq / sum(freq)) %>%
+  ungroup()
+
+data_12_19raceProps
+
+#data_12_19racecounts %>%
+  #knitr::kable(caption = "Table 4. Proportions for Gun Death by Race in 2019") %>%
+  #kableExtra::kable_styling(bootstrap_options = "basic")
+```
+
+
+```{r echo=FALSE}
+ggplot(data_12_19raceProps, aes (x = year, y = prop, fill = race )) +
+  geom_col()+
+  labs(x = '2012 and 2019', y = 'Proportion', title = "Figure 7. Proportion for Gun Death by Race for 2012 and 2019") +
+  scale_fill_discrete (name = 'race',
+                       labels = c ('White', 'Black', 'Asian', 'Hispanic', 'Native American'))
+```
+
+
+```{r echo=FALSE}
+data_12_19raceProps
+
+```
+
+```{r include=FALSE}
+data_12_19sexcounts<- data_12_19 %>%
+  group_by(year, sex) %>%
+  summarize (freq = n(), .groups = 'drop')
+
+data_12_19sexProps<- data_12_19sexcounts %>%
+  group_by(sex) %>%
+  mutate (prop = freq / sum(freq)) %>%
+  ungroup()
+```
+
+
+```{r echo=FALSE}
+ggplot(data_12_19sexProps, aes (x = year, y = prop, fill = sex)) +
+  geom_col()+
+  labs(x = '2012 and 2019', y = 'Proportion', title = "Figure 7. Proportion for Gun Death by Gender for 2012 and 2019") +
+  scale_fill_discrete (name = 'sex',
+                       labels = c ('Female', 'Male'))
+```
+
+```{r echo=FALSE}
+
+data_12_19sexProps 
+
+```
+
+***
+
+### Conclusion
+
+When I compared 2012 and 2019, I can say that gun death for the suicidal purposes had been raised in 8 percentage points from 2012 to 2019. Similarly, homicidal trend had increased in about 10 percentage points in 2019. Accidental gun death had decreased in 2019 in 6 percentage points, however, undetermined cases in 2019 had increased in 14 percentage points. 
+
+
+***
+
+
+

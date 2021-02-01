@@ -1,0 +1,72 @@
+---
+title: "Asiye Demir Style Guide"
+date: "01/30/2021"
+author: "Asiye Demir"
+output: html_notebook
+---
+
+### Description
+
+Rules below show my understanding of R syntax and the process of operation. 
+Because I am a beginner in coding, I follow one of the professional's guide 
+as an example. Among many other style guides, I like 
+[Jean Fan](http://jef.works/R-style-guide/)
+guide better. It is plain and provides many basic for a beginner like me. 
+
+### Naming Convention
+
+Descriptive naming is an important part for consistency of the work. 
+As some projects cannot be accomplished in one day, after I return to work on R,
+I want to be able to remember the names. 
+
+I prefer to use lower case letters instead of uppercase to name objects. 
+I do not like underscore (_) in the names, but if I need to be descriptive for 
+a combination of variables, I use it. Examples below just for the naming, 
+please ignore the mathematical concept.
+
+```{r eval=FALSE, include=FALSE}
+reading<- 3 + 5 # single variable or function 
+reding_SES<- 3 + 5 #reading scores contingent on SES levels 
+
+```
+
+### Syntax
+
+I prefer to use one space bar indent instead of too close or too wide. Left 
+sided arrow stores the vectors or functions to an object. The text or the codes
+in the chunks follows the 80 character line that appears on the right side of 
+notebook. In the code chunk, the object or variable in the left side of the 
+operator does not have a space, but the functions that are right side of the 
+arrow has a space.
+
+```{r eval=FALSE, include=FALSE}
+
+death2012<- subset(guns, guns$year == "2012")
+
+More_death2012<- death2012 %>%
+  group_by(intent) %>%
+  summarize(freq = n()) %>%
+  mutate(prop = freq/sum(freq))
+```
+
+### Commenting
+
+I usually do not use comments with # in the code chunk unless I am working 
+something very complex. If I need to remember what this chunk is for, I put 
+some small comments. Other than this, #s for the scrip commenting. 
+
+```{r eval=FALSE, include=FALSE}
+#model 5 has college grads + no HS grads variables
+
+model5<- lm(police_ed$Police.Fund ~ police_ed$College.Grads + police_ed$No.HS)
+summary(model5)
+```
+
+
+
+
+
+
+
+
+
